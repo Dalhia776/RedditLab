@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-
+  # match "/upvote" => "links#upvote"
+  # match "/downvote" => "items#downvote"
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
@@ -16,12 +17,17 @@ Rails.application.routes.draw do
   #   resources :products
 
   # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
+    resources :links do
+      member do
+        post 'upvote'
+    end
+  end
   #
+  #   resources :links do
+  #     member do
+  #       post 'downvote'
+  #     end
+  # #
   #     collection do
   #       get 'sold'
   #     end
@@ -54,4 +60,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
 end
