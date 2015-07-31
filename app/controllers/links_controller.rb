@@ -35,7 +35,7 @@ class LinksController < ApplicationController
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
     end
-  end
+
 
   # PATCH/PUT /links/1
   # PATCH/PUT /links/1.json
@@ -49,7 +49,8 @@ class LinksController < ApplicationController
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
     end
-  end
+    end
+
 
   # DELETE /links/1
   # DELETE /links/1.json
@@ -59,7 +60,14 @@ class LinksController < ApplicationController
       format.html { redirect_to links_url, notice: 'Link was successfully destroyed.' }
       format.json { head :no_content }
     end
+  def vote
+    @link = Link.find(params(:id))
+      vote = Vote.create(voteable: @link, creator: current_user, vote: params[:vote])
+    end
+      redirect_to :back
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
