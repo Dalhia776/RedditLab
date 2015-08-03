@@ -1,3 +1,13 @@
-// Place all the styles related to the Links controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.container-fluid {
+  margin: 20px 20px 20px 40px;
+  display: inline-block;
+
+}
+
+
+ .row1 #id {
+   padding: 40px;
+   width: 100px;
+   height: 100%;
+   overflow: auto;
+ }

@@ -10,6 +10,7 @@ class LinksController < ApplicationController
   # GET /links/1
   # GET /links/1.json
   def show
+    @link = Link.find(params(:id))
   end
 
   # GET /links/new
@@ -28,13 +29,14 @@ class LinksController < ApplicationController
 
     respond_to do |format|
       if @link.save
-        format.html { redirect_to @link, notice: 'Link was successfully created.' }
+        format.html { redirect_to links_path, notice: 'Link was successfully created.' }
         format.json { render :show, status: :created, location: @link }
       else
         format.html { render :new }
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
     end
+  end
 
 
   # PATCH/PUT /links/1
@@ -66,6 +68,23 @@ class LinksController < ApplicationController
     end
       redirect_to :back
   end
+
+  def total_votes
+    upvote + downvote
+  end
+
+  def upvote
+    @link = Link.find(params[:id])
+    @link.votes.create
+    redirect_to(links_path)
+  end
+
+  def downvote
+    @link = Link.find(params[:id])
+    @link.votes.first.destroy
+    redirect_to(links_path)
+  end
+
 
 
 

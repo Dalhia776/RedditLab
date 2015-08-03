@@ -1,19 +1,12 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @link.title %>
-</p>
-
-<p>
-  <strong>Summary:</strong>
-  <%= @link.summary %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @link.url %>
-</p>
-
-<%= link_to 'Edit', edit_link_path(@link) %> |
-<%= link_to 'Back', links_path %>
+<div class="btn-group pull-right">
+  <%= link_to like_link_path(@link), method: :put, class: "btn btn-default btn-sm" do %>
+    <span class="glyphicon glyphicon-chevron-up"></span>
+    Upvote
+    <%= @link.get_upvotes.size %>
+  <% end %>
+  <%= link_to dislike_link_path(@link), method: :put, class: "btn btn-default btn-sm" do %>
+    <span class="glyphicon glyphicon-chevron-down">
+    Downvote
+    <%= @link.get_downvotes.size %>
+  <% end %>
+</div>
