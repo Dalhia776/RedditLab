@@ -4,13 +4,17 @@ class LinksController < ApplicationController
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all
+    if params[:subreddit_id]
+      @subreddit = Subreddit.where(:name => params[:subreddit_id]).first
+      @links = @subreddit.links.all
+    else
+      @links = Link.all
+    end
   end
 
   # GET /links/1
   # GET /links/1.json
   def show
-    @link = Link.find(params(:id))
   end
 
   # GET /links/new
@@ -29,7 +33,7 @@ class LinksController < ApplicationController
 
     respond_to do |format|
       if @link.save
-        format.html { redirect_to links_path, notice: 'Link was successfully created.' }
+        format.html { redirect_to @link, notice: 'Link was successfully created.' }
         format.json { render :show, status: :created, location: @link }
       else
         format.html { render :new }
@@ -37,7 +41,6 @@ class LinksController < ApplicationController
       end
     end
   end
-
 
   # PATCH/PUT /links/1
   # PATCH/PUT /links/1.json
@@ -51,8 +54,7 @@ class LinksController < ApplicationController
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
     end
-    end
-
+  end
 
   # DELETE /links/1
   # DELETE /links/1.json
@@ -62,31 +64,7 @@ class LinksController < ApplicationController
       format.html { redirect_to links_url, notice: 'Link was successfully destroyed.' }
       format.json { head :no_content }
     end
-  def vote
-    @link = Link.find(params(:id))
-      vote = Vote.create(voteable: @link, creator: current_user, vote: params[:vote])
-    end
-      redirect_to :back
   end
-
-  def total_votes
-    upvote + downvote
-  end
-
-  def upvote
-    @link = Link.find(params[:id])
-    @link.votes.create
-    redirect_to(links_path)
-  end
-
-  def downvote
-    @link = Link.find(params[:id])
-    @link.votes.first.destroy
-    redirect_to(links_path)
-  end
-
-
-
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -96,6 +74,6 @@ class LinksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:title, :summary, :url)
+      params.require(:link).permit(:title, :summary, :url, :user_id, :subreddit_id)
     end
 end

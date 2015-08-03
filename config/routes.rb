@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
+  devise_for :users
+  resources :subreddits do
+    resources :links
+  end
+  resources :links do
+    resources :votes, :only => [:create, :update]
+  end
   # You can have the root of your site routed with "root"
   root 'links#index'
 
@@ -18,17 +21,5 @@ Rails.application.routes.draw do
 
   # Example resource route with options:
 
-  2
-  3
-  4
-  5
-  6
-  resources :links do
-    member do
-      put "like", to: "links#upvote"
-      put "dislike", to: "links#downvote"
-      put "all", to: "links#total_votes"
-    end
-  end
 
 end

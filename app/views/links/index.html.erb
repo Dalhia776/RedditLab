@@ -1,61 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Reddit</h1>
-
-    <div class="container-fluid">
+<h1>My Lab</h1>
       <table>
         <thead>
           <tr>
-            <div>
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Hot</a></li>
-                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">New</a></li>
-                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Rising</a></li>
-                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Top</a></li>
-              </ul>
-
-              <!-- Tab panes -->
-            <div class="tab-content">
-              <div role="tabpanel" class="tab-pane active" id="hot">...</div>
-              <div role="tabpanel" class="tab-pane" id="new">...</div>
-              <div role="tabpanel" class="tab-pane" id="rising">...</div>
-              <div role="tabpanel" class="tab-pane" id="top">...</div>
-            </div>
-          </div>
+            <th>Score</th>
+            <th>Upvote</th>
+            <th>Downvote</th>
+            <th>Title</th>
+            <th>Summary</th>
+            <th>User</th>
+            <th>Subreddit</th>
+            <th colspan="3"></th>
         </tr>
       </thead>
 
           <tbody>
-
-            <div class="row1">
-              <div class= "col-sm-1" id="id">
-                <tr>
-                    <% @links.each do |link| %>
-                      <%= link.id %><br>
-                  <% end %>
-                </tr>
-              </div>
-              <div class= "col-sm-2" id="id">
-                <tr>
-
-                </tr>
-              </div>
-
-              <div class="col-sm-4" id="posts">
-                      <% @links.each do |link| %>
-                      <%= link_to link.title, link.url %><br>
-                        <small class="author">Submitted <%= time_ago_in_words(link.created_at) %> ago by # </small>
-                  </div>
-                    <% end %>
-                </div>
-              <div class="col-sm-3" class="sidebar2">
-
-              </div>
-            </div>
-          </div>
-
+            <% @links.each do |link| %>
+            <tr>
+              <%= render :partial => '_votes', :locals => {:link => link} %>
+              <td><%= link_to link.title, link.url %></td>
+              <td><%= link.summary %></td>
+              <td><%= link.user_id %></td>
+              <td><%= link.subreddit_id %><</td>
+              <td><%= link_to 'Show', link %></td>
+              <td><%= link_to 'Edit', edit_link_path(link) %></td>
+              <td><%= link_to 'Destroy', link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+              <% end %>
           </tbody>
       </table>
-    </div>
-<br>

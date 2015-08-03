@@ -1,6 +1,8 @@
 class Link < ActiveRecord::Base
 
-  validates_presence_of :title
-  has_many :votes, dependent: :destroy
+  belongs_to :user
+  belongs_to :subreddit
+  has_many :votes
+
 
 end
