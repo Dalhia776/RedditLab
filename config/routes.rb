@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   resources :links do
     member do
-      put 'like', to: 'links#upvote'
-      put 'dislike', to: 'links#downvote'
+      put 'up', to: 'links#upvote'
+      put 'down', to: 'links#downvote'
     end
   end
 

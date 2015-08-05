@@ -68,20 +68,26 @@ class LinksController < ApplicationController
     end
   end
 
+  def vote
+    vote = Vote.new(:vote => true)
+    link = Link.find(params[:id])
+    link.votes << vote
+  end
+
   def upvote
     @link = Link.find(params[:id])
-    link.upvoted_by current_user
+    @link.upvoted_by current_user
     redirect_to :back
   end
 
   def downvote
     @link = Link.find(params[:id])
-    link.downvoted_by current_user
+    @link.downvoted_by current_user
     redirect_to :back
   end
 
   def totalvotes
-  ActsAsVotable::Vote.count
+  totalvotes = link.vote_count
   end
 
 
