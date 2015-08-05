@@ -1,32 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<h1>My Lab</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Score</th>
-            <th>Upvote</th>
-            <th>Downvote</th>
-            <th>Title</th>
-            <th>Summary</th>
-            <th>User</th>
-            <th>Subreddit</th>
-            <th colspan="3"></th>
-        </tr>
-      </thead>
 
-          <tbody>
-            <% @links.each do |link| %>
-            <tr>
-              <%= render :partial => '_votes', :locals => {:link => link} %>
-              <td><%= link_to link.title, link.url %></td>
-              <td><%= link.summary %></td>
-              <td><%= link.user_id %></td>
-              <td><%= link.subreddit_id %><</td>
-              <td><%= link_to 'Show', link %></td>
-              <td><%= link_to 'Edit', edit_link_path(link) %></td>
-              <td><%= link_to 'Destroy', link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-              <% end %>
-          </tbody>
-      </table>
+<div id="linksTable" class="linkList">
+<% @links.each do |link| %>
+
+
+<div class="media">
+  <div id="linkTitle">
+
+      <div id="votes" class="btn-group">
+        <%= link_to like_link_path(link), method: :put, class: "btn btn-primary btn-sm" do %>
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+          Upvote
+          <%= link.get_upvotes.size %>
+        <% end %>
+        <%= link_to dislike_link_path(link), method: :put, class: "btn btn-primary btn-sm" do %>
+          <span class="glyphicon glyphicon-thumbs-down"></span>
+          Downvote
+          <%= link.get_downvotes.size %>
+        <% end %>
+      </div>
+      <a href="#">
+        <%= link_to link.title, link %>
+      <!-- <img class="media-object" src="..." alt="..."> -->
+    </a>
+  <small class="author">Submitted <%= time_ago_in_words(link.created_at) %> ago by # </small>
+  </div>
+</div>
+
+
+<% end %>
+</div>
+</div>

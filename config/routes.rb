@@ -6,13 +6,20 @@ Rails.application.routes.draw do
   resources :links do
     resources :votes, :only => [:create, :update]
   end
-  # You can have the root of your site routed with "root"
+
+  resources :links do
+    member do
+      put 'like', to: 'links#upvote'
+      put 'dislike', to: 'links#downvote'
+    end
+  end
+
   root 'links#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-  # match "/upvote" => "links#upvote"
-  # match "/downvote" => "items#downvote"
+  # post "links/:id/upvote" => "links#upvote", as: :upvote
+  # post "links/:id/downvote" => "links#downvote", as: :downvote
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

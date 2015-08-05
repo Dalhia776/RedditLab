@@ -9,6 +9,8 @@ gem 'sass-rails', '~> 5.0'
 
 gem 'devise'
 
+gem 'acts_as_votable', '~> 0.10.0'
+
 gem 'pg'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
