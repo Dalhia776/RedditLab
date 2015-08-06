@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   devise_for :users
   resources :subreddits do
     resources :links
@@ -6,13 +7,7 @@ Rails.application.routes.draw do
   resources :links do
     resources :votes, :only => [:create, :update]
   end
-
-  resources :links do
-    member do
-      put 'up', to: 'links#upvote'
-      put 'down', to: 'links#downvote'
-    end
-  end
+ get 'links/:id/redirect' => 'links#redirect', :as => :link_redirect
 
   root 'links#index'
 

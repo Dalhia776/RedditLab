@@ -11,16 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805023304) do
+ActiveRecord::Schema.define(version: 20150806025159) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text    "body"
+    t.integer "user_id"
+    t.string  "commentable_type"
+    t.integer "commentable_id"
+  end
 
   create_table "links", force: :cascade do |t|
     t.string   "title"
     t.string   "summary"
     t.string   "url"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "user_id"
     t.integer  "subreddit_id"
+    t.integer  "vote_total",   default: 0
   end
 
   create_table "subreddits", force: :cascade do |t|
@@ -58,6 +66,9 @@ ActiveRecord::Schema.define(version: 20150805023304) do
     t.integer  "vote_weight"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "value",        default: 0
+    t.integer  "user_id"
+    t.integer  "link_id"
   end
 
   add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"

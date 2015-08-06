@@ -1,34 +1,11 @@
-<p id="notice"><%= notice %></p>
-
-
-<div id="linksTable" class="linkList">
-<% @links.each do |link| %>
-
-
-<div class="media">
-  <div id="linkTitle">
-
-      <div id="votes" class="btn-group">
-        <%= link_to up_link_path(link), method: :post, class: "btn btn-primary btn-sm" do %>
-          <span class="glyphicon glyphicon-thumbs-up"></span>
-          Upvote
-          <%= link.get_upvotes.size %>
-        <% end %>
-        <%= link_to down_link_path(link), method: :post, class: "btn btn-primary btn-sm" do %>
-          <span class="glyphicon glyphicon-thumbs-down"></span>
-          Downvote
-          <%= link.get_downvotes.size %>
-        <% end %>
-      </div>
-      <a href="#">
-        <%= link_to link.title, link %>
-      <!-- <img class="media-object" src="..." alt="..."> -->
-    </a>
-  <small class="author">Submitted <%= time_ago_in_words(link.created_at) %> ago by # </small>
+<div class="row">
+  <div class="col-md-9">
+    <%= render :partial => 'link', :collection => @links %>
   </div>
-</div>
 
-
-<% end %>
-</div>
+  <div class="col-md-3">
+    <% if current_user %>
+      <%= link_to 'New Link', new_link_path, :class => "btn btn-large btn-default" %>
+    <% end %>
+  </div>
 </div>

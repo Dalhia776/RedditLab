@@ -6,25 +6,28 @@ class User < ActiveRecord::Base
 
   has_many :links
   has_many :votes
+  has_many :comments
 
-  # def upvoted?(link)
-  #   if vote(link) && vote(link).value == 1
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
-  #
-  # def downvoted?(link)
-  #   vote(link) && vote(link).value == -1
-  # end
-  #
-  # def voted?(link)
-  #   vote(link)
-  # end
-  #
-  # def vote(link)
-  #   self.votes.where(:link_id => link.id).first
-  # end
+  has_many :self_comments, :as => :commentable, :class_name => Comment
+
+  def upvoted?(link)
+    if vote(link) && vote(link).value == 1
+      true
+    else
+      false
+    end
+  end
+
+  def downvoted?(link)
+    vote(link) && vote(link).value == -1
+  end
+
+  def voted?(link)
+    vote(link)
+  end
+
+  def vote(link)
+    self.votes.where(:link_id => link.id).first
+  end
 
 end

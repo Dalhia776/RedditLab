@@ -10,22 +10,43 @@
   <header class="navbar navbar-default" role="navigation">
       <div class="navbar-inner">
         <div class="container">
-          <div id="logo" class="navbar-brand"><%= link_to "RedditLab", root_path %></div>
-          <nav class="collapse navbar-collapse navbar-ex1-collapse">
+          <div id="logo" class="navbar-brand"><h1><%= link_to "RedditLab", root_path %></h1></div>
+          <nav role="navigation" class="collapse navbar-collapse navbar-ex1-collapse">
                       <% if user_signed_in? -%>
                                   <ul class="nav navbar-nav navbar-right">
-                                          <li><%= link_to 'Submit link', new_link_path %></li>
-                                          <li><%= link_to 'Account', edit_user_registration_path %></li>
-                                          <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+                                          <li><font color="#000000"><%= link_to 'Submit link', new_link_path %></font></li>
+                                          <li><font color="#000000"><%= link_to 'Account', edit_user_registration_path %></font></li>
+                                          <li><font color="#000000"><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></font></li>
                                  </ul>
                         <% else -%>
                                   <ul class="nav navbar-nav pull-right">
-                                          <li><%= link_to 'Sign up', new_user_registration_path %></li>
-                                          <li><%= link_to 'Sign in', new_user_session_path %></li>
+                                          <li><font color="#000000"><%= link_to 'Sign up', new_user_registration_path %></font></li>
+                                          <li><font color="#000000"><%= link_to 'Sign in', new_user_session_path %></font></li>
                                   </ul>
                                   <% end -%>
-  </nav>
+            </nav>
+          </div>
+        </div>
+        <div class=".col-md-6 .col-md-offset-3">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="#">hot</a></li>
+            <li role="presentation"><a href="#">new</a></li>
+            <li role="presentation"><a href="#">rising</a></li>
+            <li role="presentation"><a href="#">controversial</a></li>
+            <li role="presentation"><a href="#">top</a></li>
+            <li role="presentation"><a href="#">guilded</a></li>
+            <li role="presentation"><a href="#">wiki</a></li>
+            <li role="presentation"><a href="#">promoted</a></li>
+      </ul>
+    </div>
+    </header>
   <div class="container">
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, class: "alert alert-#{ name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do %>
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <%= msg %>
+      <% end %>
+    <% end %>
 
     <%= yield %>
 
