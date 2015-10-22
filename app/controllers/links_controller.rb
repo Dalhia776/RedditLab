@@ -1,27 +1,27 @@
 class LinksController < ApplicationController
   before_action :set_link, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, :except => [:index, :show]
+  before_action :set_subreddit_options, only: [:new, :edit, :update, :create]
 
   # GET /links
   # GET /links.json
   def index
     if params[:subreddit_id]
       @subreddit = Subreddit.where(:name => params[:subreddit_id]).first
-      @links = @subreddit.links.all
+      @links = @subreddit.links.order('vote_total DESC')
     else
-      @links = Link.all
+      @links = Link.order('vote_total DESC')
     end
   end
 
   # GET /links/1
   # GET /links/1.json
   def show
-    @link = Link.find(params[:id])
   end
 
   # GET /links/new
   def new
-    @link = current_user.links.build
+    @link = Link.new
   end
 
   # GET /links/1/edit
@@ -31,7 +31,8 @@ class LinksController < ApplicationController
   # POST /links
   # POST /links.json
   def create
-      @link = current_user.links.build(link_params)
+    @link = Link.new(link_params)
+    @link.user = current_user
 
     respond_to do |format|
       if @link.save
@@ -68,21 +69,26 @@ class LinksController < ApplicationController
     end
   end
 
-  def upvote
+  def redirect
     @link = Link.find(params[:id])
-    link.upvoted_by current_user
-    redirect_to :back
+    if current_user
+      @link.vote(1, current_user)
+    end
+    redirect_to @link.url
   end
 
-  def downvote
-    @link = Link.find(params[:id])
-    link.downvoted_by current_user
-    redirect_to :back
-  end
+  # def upvote
+  #   @link = Link.find(params[:id])
+  #   @link.upvote_by current_user
+  #   redirect_to links_path
+  # end
+  #
+  # def downvote
+  #   @link = Link.find(params[:id])
+  #   @link.downvote_by current_user
+  #   redirect_to links_path
+  # end
 
-  def totalvotes
-  ActsAsVotable::Vote.count
-  end
 
 
 
@@ -97,9 +103,8 @@ class LinksController < ApplicationController
       params.require(:link).permit(:title, :summary, :url, :user_id, :subreddit_id)
     end
 
-    def authorized_user
-      @link = current_user.links.find_by(id: params[:id])
-      redirect_to links_path, notice: "You shall not pass.... or edit this link!" if @link.nil?
+    def set_subreddit_options
+      @subreddit_options = Subreddit.all.collect{ |subreddit| [subreddit.name, subreddit.id] }
     end
 
 end

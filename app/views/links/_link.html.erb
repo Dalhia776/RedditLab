@@ -1,0 +1,26 @@
+<div id="link" class="row">
+  <div class="panel panel-default">
+    <div class="panel panel-body">
+      <div class="col-xs-2">
+        <%= render :partial => 'votelinks', :locals => {:link => link} %>
+      </div>
+      <div class="col-xs-10">
+        <div class="entry>"
+          <p class="title">
+            <%= link_to link.title, link.url %>
+            <!-- <a href="#">domain</a> -->
+          </p>
+          <p><small class="author">Submitted <%= time_ago_in_words(link.created_at) %> ago by <%= link.user.name %></small></p>
+          <ul class="link-list-buttons">
+            <small class="titlelinks">
+              <li><%=link_to link.comments.count, self.comments_path %> comments</li>
+              <li><%= link_to 'Show', link.url %></li>
+              <li><%= link_to 'Edit', edit_link_path(link) %></li>
+              <li><%= link_to 'Remove', link, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+            </small>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
