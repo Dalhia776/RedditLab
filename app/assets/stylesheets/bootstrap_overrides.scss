@@ -1,18 +1,61 @@
+
 header .navbar-inner {
-  background-color: #996699;
+  background-color: #C1CFDA;
   padding-bottom: 50px;
 
 }
 
-header ul .nav nav-tabs {
-  margin-left: 100px;
-
+#link {
+  margin-left: 70px;
 }
 
+.navbar-right {
+  margin-top: 50px;
+}
+
+.navbar-right a {
+  padding: 10px;
+  font-family: 'Rock Salt', cursive;
+  text-decoration: none;
+}
+
+a {
+  color: #996888;
+  text-decoration: none;
+}
+
+#logo {
+  font-family: 'Rock Salt', cursive;
+  font-size: 30px;
+  text-decoration: none;
+}
+
+p .title {
+  font-size: 25px;
+}
 
 body {
   padding: 0;
   margin: 0;
-  background-color:  #CCCCCC;
+  background-color: #8E8D9B;
+  color: #996888;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+}
 
+
+
+.author {
+  color: #071013;
+  margin: 0;
+}
+
+.titlelinks {
+  margin: 0;
+}
+
+.panel {
+  background-color: #E8E8E8;
 }

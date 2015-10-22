@@ -17,7 +17,6 @@ class LinksController < ApplicationController
   # GET /links/1
   # GET /links/1.json
   def show
-    @comment = Comment.new
   end
 
   # GET /links/new
@@ -77,6 +76,18 @@ class LinksController < ApplicationController
     end
     redirect_to @link.url
   end
+
+  # def upvote
+  #   @link = Link.find(params[:id])
+  #   @link.upvote_by current_user
+  #   redirect_to links_path
+  # end
+  #
+  # def downvote
+  #   @link = Link.find(params[:id])
+  #   @link.downvote_by current_user
+  #   redirect_to links_path
+  # end
 
 
 
