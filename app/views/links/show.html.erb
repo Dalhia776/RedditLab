@@ -1,23 +1,26 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <strong>Url:</strong>
+  <%= @link.url %>
+</p>
 
-<div class="btn-group pull-right">
-  <%= link_to up_link_path(@link), method: :put, class: "btn btn-primary btn-sm" do %>
-    <span class="glyphicon glyphicon-thumbs-up"></span>
-    Upvote
-    <%= @link.get_upvotes.size %>
-  <% end %>
-  <%= link_to down_link_path(@link), method: :put, class: "btn btn-primary btn-sm" do %>
-    <span class="glyphicon glyphicon-thumbs-down">
-    Downvote
-    <%= @link.get_downvotes.size %>
-  <% end %>
-</div>
+<p>
+  <strong>Summary:</strong>
+  <%= @link.summary %>
+</p>
 
-<% if link.user == current_user %>
-      <div class="btn-group">
-          <td><%= link_to 'Edit', edit_link_path(@link) %></td>
-          <td><%= link_to 'Destroy', @link, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default"%></td>
-      </div>
+<p>
+  <strong>Title:</strong>
+  <%= @link.title %>
+</p>
 
+
+<% if current_user %>
+  <%= render :partial => 'comments/form', :locals => {:commentable_object => @link} %>
 <% end %>
+
+<%= render :partial => "comments/comment", :collection => @link.comments %>
+
+<%= link_to 'Edit', edit_link_path(@link) %> |
+<%= link_to 'Back', links_path %>

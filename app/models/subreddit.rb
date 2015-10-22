@@ -1,6 +1,8 @@
 class Subreddit < ActiveRecord::Base
 
   has_many :links
+  has_many :comments, :as => :commentable
+
   before_save :parameterize_name
 
   def parameterize_name
@@ -10,5 +12,5 @@ class Subreddit < ActiveRecord::Base
   def to_param
     name
   end
-  
+
 end
