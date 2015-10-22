@@ -130,3 +130,5 @@ users = User.create! ([
               user_id: users.sample.id,
               subreddit_id: subreddits.sample.id
            }])
+
+           
