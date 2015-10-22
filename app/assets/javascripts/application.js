@@ -15,4 +15,4 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
-@import "bootstrap-sprockets"
+//= require bootstrap-sprockets
